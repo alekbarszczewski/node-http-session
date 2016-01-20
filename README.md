@@ -1,7 +1,7 @@
 
 # http-session
 
-Simple HTTP client that perists session between subsequent requests.
+Simple HTTP client that perists session between subsequent requests.  
 Based on [Request][request].
 
 ## Features
@@ -47,7 +47,7 @@ Represents a HTTP session.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| options | <code>string</code> &#124; <code>object</code> | request.js request options |
+| options | <code>string</code> &#124; <code>object</code> | [Request][request] options |
 
 <a name="HttpSession+setHeader"></a>
 ### httpSession.setHeader(name, value)
