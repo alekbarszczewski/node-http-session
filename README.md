@@ -2,12 +2,13 @@
 # http-session
 
 Simple HTTP client that perists session between subsequent requests.
+Based on [Request][request].
 
 ## Features
 
 * Persists session (cookies and headers) between subsequent requests
-* Allows to easily serialize/deserialize session (cookies and headers) to JSON
-* Accepts all Request options
+* Allows to easily serialize/deserialize session (cookies and headers) to/from JSON
+* Accepts all [Request][request] options
 * Allows to modify request options and response through hooks
 
 ## Installation
@@ -84,7 +85,7 @@ Represents a HTTP session.
 <a name="HttpSession+serialize"></a>
 ### httpSession.serialize() ⇒ <code>object</code>
 **Kind**: instance method of <code>[HttpSession](#HttpSession)</code>  
-**Returns**: <code>object</code> - - JSON representation of session state  
+**Returns**: <code>object</code> - JSON representation of session state  
 <a name="HttpSession+deserialize"></a>
 ### httpSession.deserialize(state)
 **Kind**: instance method of <code>[HttpSession](#HttpSession)</code>  
@@ -93,3 +94,5 @@ Represents a HTTP session.
 | --- | --- | --- |
 | state | <code>object</code> | session state |
 
+
+[request]: https://github.com/request/request

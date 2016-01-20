@@ -2,12 +2,13 @@
 # http-session
 
 Simple HTTP client that perists session between subsequent requests.
+Based on [Request][request].
 
 ## Features
 
 * Persists session (cookies and headers) between subsequent requests
-* Allows to easily serialize/deserialize session (cookies and headers) to JSON
-* Accepts all Request options
+* Allows to easily serialize/deserialize session (cookies and headers) to/from JSON
+* Accepts all [Request][request] options
 * Allows to modify request options and response through hooks
 
 ## Installation
@@ -18,3 +19,5 @@ $ npm install --save http-session
 
 ## API Reference
 {{>main}}
+
+[request]: https://github.com/request/request
