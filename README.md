@@ -8,7 +8,7 @@ Based on great [Request][request] library.
 
 * Persists session (cookies and headers) between subsequent requests
 * Allows to easily serialize/deserialize session (cookies and headers) to/from JSON
-* Accepts all [Request][request] options
+* Accepts all [Request options][request-options]
 * Allows to modify request options and response through hooks
 
 ## Installation
@@ -70,7 +70,7 @@ Default HTTP method is GET.
 
 <a name="HttpSession+get"></a>
 ### httpSession.get(url, options) ⇒ <code>Promise.&lt;http.IncomingMessage&gt;</code>
-Same as HttpSession#request with GET method
+Same as [request](#HttpSession+request) with GET method
 
 **Kind**: instance method of <code>[HttpSession](#HttpSession)</code>  
 
@@ -81,7 +81,7 @@ Same as HttpSession#request with GET method
 
 <a name="HttpSession+post"></a>
 ### httpSession.post(url, options) ⇒ <code>Promise.&lt;http.IncomingMessage&gt;</code>
-Same as HttpSession#request with POST method
+Same as [request](#HttpSession+request) with POST method
 
 **Kind**: instance method of <code>[HttpSession](#HttpSession)</code>  
 
@@ -92,7 +92,7 @@ Same as HttpSession#request with POST method
 
 <a name="HttpSession+put"></a>
 ### httpSession.put(url, options) ⇒ <code>Promise.&lt;http.IncomingMessage&gt;</code>
-Same as HttpSession#request with PUT method
+Same as [request](#HttpSession+request) with PUT method
 
 **Kind**: instance method of <code>[HttpSession](#HttpSession)</code>  
 
@@ -103,7 +103,7 @@ Same as HttpSession#request with PUT method
 
 <a name="HttpSession+del"></a>
 ### httpSession.del(url, options) ⇒ <code>Promise.&lt;http.IncomingMessage&gt;</code>
-Same as HttpSession#request with DELETE method
+Same as [request](#HttpSession+request) with DELETE method
 
 **Kind**: instance method of <code>[HttpSession](#HttpSession)</code>  
 
@@ -114,7 +114,7 @@ Same as HttpSession#request with DELETE method
 
 <a name="HttpSession+patch"></a>
 ### httpSession.patch(url, options) ⇒ <code>Promise.&lt;http.IncomingMessage&gt;</code>
-Same as HttpSession#request with PATCH method
+Same as [request](#HttpSession+request) with PATCH method
 
 **Kind**: instance method of <code>[HttpSession](#HttpSession)</code>  
 
@@ -125,7 +125,7 @@ Same as HttpSession#request with PATCH method
 
 <a name="HttpSession+head"></a>
 ### httpSession.head(url, options) ⇒ <code>Promise.&lt;http.IncomingMessage&gt;</code>
-Same as HttpSession#request with HEAD method
+Same as [request](#HttpSession+request) with HEAD method
 
 **Kind**: instance method of <code>[HttpSession](#HttpSession)</code>  
 
@@ -206,6 +206,31 @@ For details see [class-extend](https://github.com/SBoudrias/class-extend) librar
 | protoProps | <code>object</code> | instance methods/properties |
 | staticProps | <code>object</code> | static methods/properties |
 
+**Example**  
+```js
+var MyCrawler = HttpSession.extend({
+  constructor: function () {
+    // if you are overriding contructor remember to call super
+    MyCrawler.__super__.constructor.apply(this, arguments)
+    // additional initialization code here...
+  },
+  login: function (login, password) {
+    return this.post({
+      url: 'http://example.com/login',
+      body: { login: login, password: password },
+         json: true
+    }).then(function (response) {
+      this.setHeader('Authorization', response.body.accessToken)
+    })
+  }
+}, {
+  hello: function () { console.log('hello!') }
+})
+
+var myCrawler = new MyCrawler()
+myCrawler.login({ login: 'login', password: '*****' }).then(...)
+MyCrawler.hello()
+```
 <a name="HttpSession..beforeRequestCallback"></a>
 ### HttpSession~beforeRequestCallback : <code>function</code>
 beforeRequest callback function is called before each request.
@@ -235,6 +260,4 @@ You can return promise.
 
 
 [request]: https://github.com/request/request
-[class-extend]: https://github.com/SBoudrias/class-extend
-
-logs/default opts
+[request-options]: https://github.com/request/request#requestoptions-callback
