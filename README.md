@@ -6,8 +6,8 @@ Based on great [Request][request] library.
 
 ## Features
 
-* Persists session (cookies and headers) between subsequent requests
-* Allows to easily serialize/deserialize session (cookies and headers) to/from JSON
+* Persists session (cookies) between subsequent requests
+* Allows to easily serialize/deserialize session (cookies) to/from JSON
 * Accepts all [Request options][request-options]
 * Allows to modify request options and response through hooks
 
@@ -31,11 +31,9 @@ Represents a HTTP session.
         * [.get(url, options)](#HttpSession+get) ⇒ <code>Promise.&lt;http.IncomingMessage&gt;</code>
         * [.post(url, options)](#HttpSession+post) ⇒ <code>Promise.&lt;http.IncomingMessage&gt;</code>
         * [.put(url, options)](#HttpSession+put) ⇒ <code>Promise.&lt;http.IncomingMessage&gt;</code>
-        * [.del(url, options)](#HttpSession+del) ⇒ <code>Promise.&lt;http.IncomingMessage&gt;</code>
+        * [.delete(url, options)](#HttpSession+delete) ⇒ <code>Promise.&lt;http.IncomingMessage&gt;</code>
         * [.patch(url, options)](#HttpSession+patch) ⇒ <code>Promise.&lt;http.IncomingMessage&gt;</code>
         * [.head(url, options)](#HttpSession+head) ⇒ <code>Promise.&lt;http.IncomingMessage&gt;</code>
-        * [.setHeader(name, value)](#HttpSession+setHeader)
-        * [.unsetHeader(name)](#HttpSession+unsetHeader)
         * [.beforeRequest(callback)](#HttpSession+beforeRequest)
         * [.afterRequest(callback)](#HttpSession+afterRequest)
         * [.serialize()](#HttpSession+serialize) ⇒ <code>object</code>
@@ -57,7 +55,7 @@ Represents a HTTP session.
 <a name="HttpSession+request"></a>
 ### httpSession.request(url/options, options) ⇒ <code>Promise.&lt;http.IncomingMessage&gt;</code>
 Performs HTTP request.
-You can pass URL or URL + options or only options.
+You can pass URL or URL + options or options only.
 Default HTTP method is GET.
 
 **Kind**: instance method of <code>[HttpSession](#HttpSession)</code>  
@@ -101,8 +99,8 @@ Same as [request](#HttpSession+request) with PUT method
 | url | <code>string</code> | URL |
 | options | <code>object</code> | [Request][request] options |
 
-<a name="HttpSession+del"></a>
-### httpSession.del(url, options) ⇒ <code>Promise.&lt;http.IncomingMessage&gt;</code>
+<a name="HttpSession+delete"></a>
+### httpSession.delete(url, options) ⇒ <code>Promise.&lt;http.IncomingMessage&gt;</code>
 Same as [request](#HttpSession+request) with DELETE method
 
 **Kind**: instance method of <code>[HttpSession](#HttpSession)</code>  
@@ -134,28 +132,6 @@ Same as [request](#HttpSession+request) with HEAD method
 | url | <code>string</code> | URL |
 | options | <code>object</code> | [Request][request] options |
 
-<a name="HttpSession+setHeader"></a>
-### httpSession.setHeader(name, value)
-Sets custom header that will be sent on each request.
-Headers set through this method will also be serialized by [serialize](#HttpSession+serialize) method.
-
-**Kind**: instance method of <code>[HttpSession](#HttpSession)</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| name | <code>string</code> | header name |
-| value | <code>any</code> | header value |
-
-<a name="HttpSession+unsetHeader"></a>
-### httpSession.unsetHeader(name)
-Unsets custom header
-
-**Kind**: instance method of <code>[HttpSession](#HttpSession)</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| name | <code>string</code> | header name |
-
 <a name="HttpSession+beforeRequest"></a>
 ### httpSession.beforeRequest(callback)
 Sets up beforeRequest hook
@@ -178,8 +154,7 @@ Sets up afterRequest hook
 
 <a name="HttpSession+serialize"></a>
 ### httpSession.serialize() ⇒ <code>object</code>
-Serializes session state to JSON.
-It serializes cookies and custom headers.
+Serializes session state (cookies) to JSON.
 
 **Kind**: instance method of <code>[HttpSession](#HttpSession)</code>  
 **Returns**: <code>object</code> - JSON representation of session state  
@@ -220,7 +195,7 @@ var MyCrawler = HttpSession.extend({
       body: { login: login, password: password },
          json: true
     }).then(function (response) {
-      this.setHeader('Authorization', response.body.accessToken)
+      // do some stuff
     })
   }
 }, {
